@@ -3,9 +3,7 @@
 import {
   Award,
   BadgeCheck,
-  BarChart3,
   Bell,
-  Briefcase,
   BriefcaseBusiness,
   Building2,
   CalendarDays,
@@ -22,10 +20,8 @@ import {
   Phone,
   School,
   Trophy,
-  University,
   User,
   Users,
-  UsersRound,
 } from "lucide-react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import Image from "next/image";
@@ -43,16 +39,109 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
+function SolidIcon({
+  className,
+  children,
+  viewBox = "0 0 24 24",
+}: {
+  className?: string;
+  children: React.ReactNode;
+  viewBox?: string;
+}) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="currentColor"
+      viewBox={viewBox}
+    >
+      {children}
+    </svg>
+  );
+}
+
+function SolidUser({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm0 2c-4.1 0-7 2.1-7 5v1h14v-1c0-2.9-2.9-5-7-5Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidSchool({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M4 20h16v-2h-1V8h-4V5l-3-2-3 2v3H5v10H4v2Zm7-13 1-.65L13 7v11h-2V7Zm-4 3h2v8H7v-8Zm8 0h2v8h-2v-8Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidUsers({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M9.5 12a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 9.5 12Zm0 2C6 14 3.5 15.7 3.5 18.1V20h12v-1.9C15.5 15.7 13 14 9.5 14Zm6.7-2.1A3 3 0 1 0 14 6.8a4.9 4.9 0 0 1 .5 2.2 4.8 4.8 0 0 1-1 3 6.9 6.9 0 0 1 3.8 3.7H21v-1.3c0-2-2-3.4-4.8-3.4Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidCap({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M12 4 2 9l10 5 8-4v5h2V9L12 4Zm-6 8.2V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.8L12 15l-6-2.8Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidChart({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M4 19h16v2H4v-2Zm2-8h3v6H6v-6Zm5-5h3v11h-3V6Zm5 8h3v3h-3v-3Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidBriefcase({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M9 5h6a2 2 0 0 1 2 2v1h3a2 2 0 0 1 2 2v3h-8v-1h-4v1H2v-3a2 2 0 0 1 2-2h3V7a2 2 0 0 1 2-2Zm0 3h6V7H9v1ZM2 15h8v1h4v-1h8v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidCalendar({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M7 2h2v3h6V2h2v3h2a2 2 0 0 1 2 2v2H3V7a2 2 0 0 1 2-2h2V2Zm14 9v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8h18Zm-14 3h3v3H7v-3Zm5 0h3v3h-3v-3Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidTrophy({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M7 4h10v2h3v3a5 5 0 0 1-4.1 4.9A5 5 0 0 1 13 16v2h3v2H8v-2h3v-2a5 5 0 0 1-2.9-2.1A5 5 0 0 1 4 9V6h3V4Zm0 4H6v1a3 3 0 0 0 1.5 2.6A6.4 6.4 0 0 1 7 9V8Zm10 1a6.4 6.4 0 0 1-.5 2.6A3 3 0 0 0 18 9V8h-1v1Z" />
+    </SolidIcon>
+  );
+}
+
+function SolidFile({ className }: { className?: string }) {
+  return (
+    <SolidIcon className={className}>
+      <path d="M6 2h8l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm7 1.5V8h4.5L13 3.5ZM8 12h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+    </SolidIcon>
+  );
+}
+
 const navItems = [
-  { label: "Profile", icon: User, active: true },
-  { label: "Schools Management", icon: University },
-  { label: "Staff Management", icon: UsersRound },
-  { label: "Student Management", icon: GraduationCap },
-  { label: "Reports", icon: BarChart3 },
-  { label: "Job Application List", icon: Briefcase },
-  { label: "Holiday", icon: CalendarDays },
-  { label: "My Achievements", icon: Trophy },
-  { label: "Exam Schedule", icon: FileText },
+  { label: "Profile", icon: SolidUser, active: true },
+  { label: "Schools Management", icon: SolidSchool },
+  { label: "Staff Management", icon: SolidUsers },
+  { label: "Student Management", icon: SolidCap },
+  { label: "Reports", icon: SolidChart },
+  { label: "Job Application List", icon: SolidBriefcase },
+  { label: "Holiday", icon: SolidCalendar },
+  { label: "My Achievements", icon: SolidTrophy },
+  { label: "Exam Schedule", icon: SolidFile },
 ];
 
 const summaryCards = [
@@ -64,6 +153,8 @@ const summaryCards = [
     color: "#D9145C",
     helperColor: "#10B347",
     gradient: "from-[#FF4F8A] to-[#E81964]",
+    cardBg: "from-[#FFF3F7] to-[#FFFFFF]",
+    border: "border-[#FFD5E5]",
   },
   {
     label: "Total Staff",
@@ -73,6 +164,8 @@ const summaryCards = [
     color: "#005BDB",
     helperColor: "#10B347",
     gradient: "from-[#3584FF] to-[#005BDB]",
+    cardBg: "from-[#F0F6FF] to-[#FFFFFF]",
+    border: "border-[#CFE1FF]",
   },
   {
     label: "Total Students",
@@ -82,6 +175,8 @@ const summaryCards = [
     color: "#22C55E",
     helperColor: "#10B347",
     gradient: "from-[#45C85C] to-[#1DA640]",
+    cardBg: "from-[#EFFBF3] to-[#FFFFFF]",
+    border: "border-[#CFF3DA]",
   },
   {
     label: "Total Reports",
@@ -91,6 +186,8 @@ const summaryCards = [
     color: "#7C3AED",
     helperColor: "#3429A4",
     gradient: "from-[#8B6DFF] to-[#6247E7]",
+    cardBg: "from-[#F4F0FF] to-[#FFFFFF]",
+    border: "border-[#DED3FF]",
   },
   {
     label: "Job Applications",
@@ -100,6 +197,8 @@ const summaryCards = [
     color: "#F97316",
     helperColor: "#FF2E00",
     gradient: "from-[#FF9C21] to-[#F56A00]",
+    cardBg: "from-[#FFF5ED] to-[#FFFFFF]",
+    border: "border-[#FFDABB]",
   },
 ];
 
@@ -256,7 +355,7 @@ function SidebarContent() {
             )}
           >
             <span className="flex items-center gap-4">
-              <item.icon className="size-5" />
+              <item.icon className="size-6 shrink-0" />
               {item.label}
             </span>
             {!item.active && <ChevronRight className="size-4 opacity-70" />}
@@ -342,7 +441,7 @@ function Header() {
             transition={{ duration: 0.35, ease: "easeOut" }}
             className="flex min-w-0 items-center gap-3 lg:hidden"
           >
-            <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white ring-1 ring-white/80">
+            <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white ring-[3px] ring-white/80">
               <Image
                 src="/assets/logo_transparent_fixed.png"
                 alt="Sri Chaitanya logo"
@@ -353,7 +452,7 @@ function Header() {
               />
             </div>
             <div className="min-w-0">
-              <p className="truncate text-xl font-extrabold leading-6">
+              <p className="truncate text-xl font-bold leading-6">
                 Sri Chaitanya
               </p>
               <p className="truncate text-sm leading-4 text-white/90">
@@ -452,7 +551,13 @@ function SummaryCards() {
           transition={{ delay: index * 0.05, duration: 0.35 }}
           whileHover={{ y: -3 }}
         >
-          <Card className="h-full min-h-[116px] rounded-lg border-[#E8EDF7] px-7 py-6 shadow-[0_12px_30px_rgba(7,27,82,0.08)] transition-shadow hover:shadow-[0_18px_42px_rgba(7,27,82,0.12)]">
+          <Card
+            className={cn(
+              "h-full min-h-[116px] rounded-lg bg-gradient-to-br px-7 py-6 shadow-[0_12px_30px_rgba(7,27,82,0.08)] transition-shadow hover:shadow-[0_18px_42px_rgba(7,27,82,0.12)]",
+              card.cardBg,
+              card.border,
+            )}
+          >
             <div className="flex items-start gap-5">
               <div
                 className={cn(
@@ -511,7 +616,7 @@ function ProfileSummary() {
               Admin
             </h2>
             <Badge className="mt-2 rounded-md bg-[#FFE5EF] px-4 py-2 text-[11px]">
-              Super Administrator
+             Administrator
             </Badge>
           </div>
         </div>
